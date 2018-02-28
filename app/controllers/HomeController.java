@@ -1,6 +1,9 @@
 package controllers;
 
+import java.io.IOException;
+
 import play.mvc.*;
+import services.ScrambleWord;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -13,9 +16,11 @@ public class HomeController extends Controller {
      * The configuration in the <code>routes</code> file means that
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
+     * @throws IOException 
      */
-    public Result index() {
-        return ok(views.html.index.render());
+    public Result index() throws IOException {
+    	ScrambleWord scrambleWord = new ScrambleWord();
+        return ok(views.html.index.render(scrambleWord.getOriginWord()));
     }
 
 }
