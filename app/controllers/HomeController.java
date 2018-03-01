@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 
 import play.mvc.*;
+import services.PermutationWord;
 import services.ScrambleWord;
 
 /**
@@ -20,6 +21,8 @@ public class HomeController extends Controller {
      */
     public Result index() throws IOException {
     	ScrambleWord scrambleWord = new ScrambleWord();
+    	PermutationWord p = new PermutationWord("ABC");
+    	p.getAllPermutation();
         return ok(views.html.index.render(scrambleWord.getOriginWord(), scrambleWord.getShuffleWord()));
     }
 
