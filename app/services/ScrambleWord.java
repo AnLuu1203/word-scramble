@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -15,6 +17,10 @@ public class ScrambleWord {
 	public ScrambleWord() throws IOException {
 		// TODO Auto-generated constructor stub
 		this.originWord = this.getRandomWord();
+	}
+	
+	public ScrambleWord(String originWord) {
+		this.originWord = originWord;
 	}
 	
 	public String getOriginWord() {
@@ -37,5 +43,22 @@ public class ScrambleWord {
         words.close();
         
 		return realWord;
+	}
+	
+	public String getShuffleWord() {
+		int wordLength = this.originWord.length();
+		ArrayList<Character> characters = new ArrayList<Character>(wordLength);
+		
+		for (char character : this.originWord.toCharArray()) {
+			characters.add(character);
+		}
+		Collections.shuffle(characters);
+		
+		String shuffleWord = "";
+		for (int i = 0; i < wordLength; i++) {
+			shuffleWord += characters.get(i).toString();
+		}
+		
+		return shuffleWord;
 	}
 }
