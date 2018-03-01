@@ -20,7 +20,7 @@ public class HomeController extends Controller {
      */
     public Result index() throws IOException {
     	ScrambleWord scrambleWord = new ScrambleWord();
-        return ok(views.html.index.render(scrambleWord.getOriginWord()));
+        return ok(views.html.index.render(scrambleWord.getOriginWord(), scrambleWord.getShuffleWord()));
     }
 
 }
