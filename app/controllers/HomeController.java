@@ -20,12 +20,6 @@ public class HomeController extends Controller {
      */
     public Result index() throws IOException {
     	ScrambleWord scrambleWord = new ScrambleWord();
-    	int count = 0;
-    	for (String word : scrambleWord.getPossibleSubWord()) {
-    		System.out.println(word);
-    		count += 1;
-    	}
-    	System.out.println(count);
         return ok(views.html.index.render(scrambleWord.getOriginWord(), scrambleWord.getShuffleWord()));
     }
 
