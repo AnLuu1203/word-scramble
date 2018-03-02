@@ -5,6 +5,7 @@ import java.io.IOException;
 import play.mvc.*;
 import services.PermutationWord;
 import services.ScrambleWord;
+import services.SubsetWord;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -21,8 +22,8 @@ public class HomeController extends Controller {
      */
     public Result index() throws IOException {
     	ScrambleWord scrambleWord = new ScrambleWord();
-    	PermutationWord p = new PermutationWord("ABC");
-    	p.getAllPermutation();
+    	SubsetWord p = new SubsetWord("ABCD");
+    	p.getAllSubset();
         return ok(views.html.index.render(scrambleWord.getOriginWord(), scrambleWord.getShuffleWord()));
     }
 
