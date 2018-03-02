@@ -14,6 +14,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import play.Play;
+import models.Entry;
 
 public class ScrambleWord {
 	private String originWord;
@@ -28,45 +29,15 @@ public class ScrambleWord {
 	
 	public ScrambleWord(String originWord) throws IOException {
 		this.originWord = originWord;
-//		this.dictionary = new ArrayList<String>();
-//		this.loadDictionary();
 	}
 	
 	public String getOriginWord() {
 		return this.originWord;
 	}
 	
-	private void loadDictionary() throws IOException {
-		File source = Play.application().getFile("app/assets/dictionary.txt");
-		LineNumberReader lnr = new LineNumberReader(new FileReader(source));
-		lnr.skip(Long.MAX_VALUE);
-        int numWords = lnr.getLineNumber();
-        lnr.close();
-        
-        Scanner words = new Scanner(source);
-        for (int i = 0; i < numWords; i++) {
-            String word = words.nextLine();
-            this.dictionary.add(word);
-        }
-        words.close();
-	}
-	
 	private String getRandomWord() throws IOException {
-		File source = Play.application().getFile("app/assets/dictionary.txt");
-		LineNumberReader lnr = new LineNumberReader(new FileReader(source));
-        lnr.skip(Long.MAX_VALUE);
-        int numWords = lnr.getLineNumber();
-        lnr.close();
-        Random generator = new Random();
-        int randomWord = generator.nextInt(numWords - 1);
-        String realWord = "";
-        Scanner words = new Scanner(source);
-        for (int i = 0; i < randomWord; i++) {
-            realWord = words.nextLine();
-        }
-        words.close();
-        
-		return realWord;
+        Entry randomEntry = Entry.getRandomEntry();
+		return randomEntry.word.toLowerCase();
 	}
 	
 	public String getShuffleWord() {
@@ -102,7 +73,7 @@ public class ScrambleWord {
 		return results;
 	}
 	
-	public List<String> getValidSubWords() throws IOException {
+	public List<String> getValidSubWords() {
 		ArrayList<String> possibleWord = (ArrayList<String>) this.getPossibleSubWords();
 		ArrayList<String> results = new ArrayList<String>();
 		for (String word : possibleWord) {
@@ -113,22 +84,7 @@ public class ScrambleWord {
 		return results;
 	}
 	
-	public boolean validateWord(String word) throws IOException {
-		File source = Play.application().getFile("app/assets/dictionary.txt");
-		LineNumberReader lnr = new LineNumberReader(new FileReader(source));
-		lnr.skip(Long.MAX_VALUE);
-        int numWords = lnr.getLineNumber();
-        lnr.close();
-        
-        Scanner words = new Scanner(source);
-        for (int i = 0; i < numWords; i++) {
-            String w = words.nextLine();
-            if (w.equals(word)) {
-            	words.close();
-            	return true;
-            }
-        }
-        words.close();
-        return false;
+	public boolean validateWord(String word) {
+        return Entry.isWordExists(word);
 	}
 }
