@@ -44,7 +44,6 @@ public class PermutationWord {
 	
 	private void addResult(char[] word) {
 		String result = new String(word);
-		System.out.println(result);
 		this.results.add(result);
 	}
 }

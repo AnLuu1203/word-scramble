@@ -3,9 +3,7 @@ package controllers;
 import java.io.IOException;
 
 import play.mvc.*;
-import services.PermutationWord;
 import services.ScrambleWord;
-import services.SubsetWord;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -22,8 +20,12 @@ public class HomeController extends Controller {
      */
     public Result index() throws IOException {
     	ScrambleWord scrambleWord = new ScrambleWord();
-    	SubsetWord p = new SubsetWord("ABCD");
-    	p.getAllSubset();
+    	int count = 0;
+    	for (String word : scrambleWord.getPossibleSubWord()) {
+    		System.out.println(word);
+    		count += 1;
+    	}
+    	System.out.println(count);
         return ok(views.html.index.render(scrambleWord.getOriginWord(), scrambleWord.getShuffleWord()));
     }
 

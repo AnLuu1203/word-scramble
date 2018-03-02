@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 
 import play.Play;
 
@@ -60,5 +63,21 @@ public class ScrambleWord {
 		}
 		
 		return shuffleWord;
+	}
+	
+	public List<String> getPossibleSubWord() {
+		ArrayList<String> subsetWord = (ArrayList<String>) (new SubsetWord(this.originWord)).getAllSubset();
+		ArrayList<String> results = new ArrayList<String>();
+		
+		for (String word : subsetWord) {
+			ArrayList<String> permutation = (ArrayList<String>) (new PermutationWord(word)).getAllPermutation();
+			results.addAll(permutation);
+		}
+		
+		Set<String> hs = new HashSet<>();
+		hs.addAll(results);
+		results.clear();
+		results.addAll(hs);
+		return results;
 	}
 }

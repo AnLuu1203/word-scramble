@@ -41,7 +41,6 @@ public class SubsetWord {
 	private void addResult(char[] word) {
 		String result = new String(word);
 		result = result.substring(1, result.length());
-		System.out.println(result);
 		this.results.add(result);
 	}
 }
