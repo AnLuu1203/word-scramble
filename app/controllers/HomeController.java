@@ -1,10 +1,12 @@
 package controllers;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import models.Entry;
 import play.mvc.*;
+import play.libs.Json;
 import services.ScrambleWord;
 import io.ebean.*;
 
@@ -19,16 +21,22 @@ public class HomeController extends Controller {
      * The configuration in the <code>routes</code> file means that
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
-     * @throws IOException 
+     * @throws IOException
      */
-    public Result index() throws IOException {
-    	ScrambleWord scrambleWord = new ScrambleWord();
-//    	List<Entry> test = Entry.find.query().select("word").setDistinct(true).where().ilike("word", "_a_")..findList();
-    	for (String t : scrambleWord.getValidSubWords()) {
-    		System.out.println(t);
-    	}
-//    	System.out.println(Entry.isWordExists("Text"));
+    public Result index() {
+        session().clear();
+        ScrambleWord scrambleWord = new ScrambleWord();
+        session("originWord", scrambleWord.getOriginWord());
         return ok(views.html.index.render(scrambleWord.getOriginWord(), scrambleWord.getShuffleWord()));
+    }
+
+    public Result validate(String answer) {
+        ScrambleWord scrambleWord = new ScrambleWord(session("originWord"));
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        result.put("valid", scrambleWord.validateWord(answer));
+
+        return ok(Json.toJson(result));
     }
 
 }
