@@ -1,3 +1,30 @@
 .hide {
-	display: none !important;
+  display: none !important;
+}
+
+#input_word {
+  border: 2px solid #bbb;
+}
+
+#shuffle_word {
+  border: 2px solid #000;
+}
+
+.word {
+  font-size: 40px;
+  font-weight: bold;
+  letter-spacing: 8px;
+  height: 86px;
+}
+
+body {
+  margin-top: 200px;
+}
+
+#correct_input {
+  padding-left: 20px;
+}
+
+#correct_input p {
+  font-size: 30px;
 }

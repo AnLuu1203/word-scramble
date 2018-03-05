@@ -35,6 +35,7 @@ public class HomeController extends Controller {
         Map<String, Object> result = new HashMap<String, Object>();
 
         result.put("valid", scrambleWord.validateWord(answer));
+        result.put("answer", answer);
 
         return ok(Json.toJson(result));
     }

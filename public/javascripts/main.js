@@ -30,14 +30,51 @@ function removeChar(str, char) {
 }
 
 function submitAnswer(answer) {
-	$.ajax({
-		method: "GET",
-		url: "/validate",
-		data: {
-			answer: answer
-		},
-		success: function(res) {
-			console.log(res);
-		}
-	});
+	if (answer.length < 3) {
+		alert('Input at least 3 characters');
+		return
+	}
+
+	if (isCorrectTypedWord(answer)) {
+		$("#input_word").addClass("alert-danger");
+		setTimeout(function() {
+			$("#input_word").removeClass("alert-danger");
+		}, 1500);
+	} else {
+		$.ajax({
+			method: "GET",
+			url: "/validate",
+			data: {
+				answer: answer
+			},
+			success: function(res) {
+				console.log(res);
+				if (res.valid) {
+					$("#input_word").addClass("alert-success");
+					$("#correct_input").append("<p>" + res.answer + "</p>")
+					setTimeout(function() {
+						$("#input_word").removeClass("alert-success");
+					}, 1500);
+				} else {
+					$("#input_word").addClass("alert-danger");
+					setTimeout(function() {
+						$("#input_word").removeClass("alert-danger");
+					}, 1500);
+				}
+			},
+			error: function(res) {
+				alert('Something went wrong!!');
+			}
+		});
+	}
+}
+
+function isCorrectTypedWord(answer) {
+	var selector = $("#correct_input p");
+	for (i = 0; i < selector.length; i++) {
+		if (selector[i].innerText === answer)
+			return true;
+	}
+
+	return false;
 }

@@ -1,10 +1,18 @@
 @(word: String, shuffleWord: String)
 
-@main("Welcome to Play") {
+@main("Word Scramble") {
   <div class="container">
-  	<div id="input_word"></div>
-  	<h1>Welcome to Play!</h1>
-  	<h2>@word</h2>
-  	<h2 id="shuffle_word">@shuffleWord</h2>
+
+    <div class="row">
+      <div class="col-lg-8">
+        <div id="input_word" class="alert text-center word"></div>
+        <h2 id="shuffle_word" class="word text-center alert">@shuffleWord</h2>
+      </div>
+
+      <div class="col-lg-4">
+        <div id="correct_input">
+        </div>
+      </div>
+    </div>
   </div>
 }
