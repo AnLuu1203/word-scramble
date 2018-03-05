@@ -30,3 +30,8 @@ sbt run
 ```
 
 Go to http://localhost:9000
+
+## References
+- Play framework: https://www.playframework.com/
+- Ebean ORM: http://ebean-orm.github.io/
+- English Dictionary Database: https://sourceforge.net/projects/mysqlenglishdictionary/
