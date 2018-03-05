@@ -15,9 +15,9 @@ public class Entry extends Model {
 	public static Entry getRandomEntry() {
 		// Random row in MySQL
 		String sql = "SELECT word FROM word_scramble.entries\n" +
-					 "WHERE word NOT LIKE \"%-%\" AND word NOT LIKE \"% %\" \n" +
-				 	 "ORDER BY RAND()\n" +
-				 	 "LIMIT 1";
+								"WHERE word NOT LIKE \"%-%\" AND word NOT LIKE \"% %\" AND word LIKE \"%___%\" \n" +
+								"ORDER BY RAND()\n" +
+								"LIMIT 1";
 		RawSql rawSql = RawSqlBuilder.parse(sql).create();
 
 		List<Entry> randomEntry = Entry.find.query().setRawSql(rawSql).findList();
