@@ -27,6 +27,7 @@ public class HomeController extends Controller {
         session().clear();
         ScrambleWord scrambleWord = new ScrambleWord();
         session("originWord", scrambleWord.getOriginWord());
+        System.out.println("Origin Word: " + scrambleWord.getOriginWord());
         return ok(views.html.index.render(scrambleWord.getOriginWord(), scrambleWord.getShuffleWord()));
     }
 
@@ -36,6 +37,19 @@ public class HomeController extends Controller {
 
         result.put("valid", scrambleWord.validateWord(answer));
         result.put("answer", answer);
+
+        return ok(Json.toJson(result));
+    }
+
+    public Result results() {
+        ScrambleWord scrambleWord = new ScrambleWord(session("originWord"));
+        Map<String, Object> result = new HashMap<String, Object>();
+        List<String> allValidWords = scrambleWord.getValidSubWords();
+
+        int index = 0;
+        for (String word : allValidWords) {
+            result.put(word, index++);
+        }
 
         return ok(Json.toJson(result));
     }

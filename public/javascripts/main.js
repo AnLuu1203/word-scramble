@@ -21,6 +21,22 @@ $(document).keydown(function(e) {
 	}
 });
 
+$(document).ready(function() {
+	$("#surrender").click(function() {
+		console.log('surrender');
+		$.ajax({
+			method: "GET",
+			url: "/results",
+			success: function(res) {
+				console.log(res);
+			},
+			error: function(res) {
+				alert('Something went wrong!!');
+			}
+		});
+	});
+});
+
 function removeChar(str, char) {
 	var index = str.indexOf(char);
 	if (index === -1) {
@@ -42,30 +58,30 @@ function submitAnswer(answer) {
 		}, 1500);
 	} else {
 		$.ajax({
-			method: "GET",
-			url: "/validate",
-			data: {
-				answer: answer
-			},
-			success: function(res) {
-				console.log(res);
-				if (res.valid) {
-					$("#input_word").addClass("alert-success");
-					$("#correct_input").append("<p>" + res.answer + "</p>")
-					setTimeout(function() {
-						$("#input_word").removeClass("alert-success");
-					}, 1500);
-				} else {
-					$("#input_word").addClass("alert-danger");
-					setTimeout(function() {
-						$("#input_word").removeClass("alert-danger");
-					}, 1500);
-				}
-			},
-			error: function(res) {
-				alert('Something went wrong!!');
+		method: "GET",
+		url: "/validate",
+		data: {
+			answer: answer
+		},
+		success: function(res) {
+			console.log(res);
+			if (res.valid) {
+				$("#input_word").addClass("alert-success");
+				$("#correct_input").append("<p>" + res.answer + "</p>")
+				setTimeout(function() {
+					$("#input_word").removeClass("alert-success");
+				}, 1500);
+			} else {
+				$("#input_word").addClass("alert-danger");
+				setTimeout(function() {
+					$("#input_word").removeClass("alert-danger");
+				}, 1500);
 			}
-		});
+		},
+		error: function(res) {
+			alert('Something went wrong!!');
+		}
+	});
 	}
 }
 
